@@ -1,0 +1,41 @@
+<h1 class="text-primary"><i class="fa fa-user"></i> All Students <small>All Students Table</small></h1>
+<ol class="breadcrumb">
+    <li><a href="index.php?page=dashboard"><i class="fa fa-dashboard"></i> Dashboard / </a></li>
+    <li class="active"><i class="fa fa-user"></i> All Students</li>
+</ol> 
+
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Class</th>
+                <th>City</th>
+                <th>Contact</th>
+                <th>Photo</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                $student_info = mysqli_query($db,"SELECT * FROM `student_info`");
+                while($row = mysqli_fetch_assoc($student_info)){?>
+              <tr>
+                <td><?php echo $row['id']; ?></td>
+                <td><?php echo ucwords($row['name']); ?></td>
+                <td><?php echo $row['roll']; ?></td>
+                <td><?php echo $row['class']; ?></td>
+                <td><?php echo ucwords($row['city']); ?></td>
+                <td><?php echo $row['parent_contact']; ?></td>
+                <td><img src="../img/student_images/<?php echo $row['photo']; ?>" width="80px" height="80px" alt=""></td>
+                <td>
+                    <a href="index.php?page=updateStudent&id=<?php echo base64_encode($row['id']); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Edit</i></a>
+                    <a href="deleteStudent.php?id=<?php echo base64_encode($row['id']); ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"> Delete</i></a>
+                </td>
+            </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
